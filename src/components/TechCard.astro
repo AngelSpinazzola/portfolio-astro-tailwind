@@ -1,0 +1,66 @@
+---
+interface Skill {
+  name: string;
+  level: string;
+  icon: string;
+}
+
+interface Props {
+  title: string;
+  color: "blue" | "green" | "purple" | "orange" | "red" | "pink";
+  skills: Skill[];
+}
+
+const { title, color, skills } = Astro.props;
+
+const colorClasses = {
+  blue: "from-blue-500 to-blue-600",
+  green: "from-green-500 to-green-600",
+  purple: "from-purple-500 to-purple-600",
+  orange: "from-orange-500 to-orange-600",
+  red: "from-red-500 to-red-600",
+  pink: "from-pink-500 to-pink-600",
+};
+
+const barColors = {
+  blue: "bg-blue-600",
+  green: "bg-green-600",
+  purple: "bg-purple-600",
+  orange: "bg-orange-600",
+  red: "bg-red-600",
+  pink: "bg-pink-600",
+};
+---
+
+<div
+  class="group transform rounded-2xl border border-gray-200/20 bg-transparent p-6 shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-2 hover:shadow-xl dark:border-gray-700/20"
+>
+  <!-- Header con título -->
+  <div class="mb-6">
+    <h3 class={`font-bold text-xl bg-gradient-to-r ${colorClasses[color]} bg-clip-text text-transparent`}>
+      {title}
+    </h3>
+  </div>
+
+  <!-- Lista de skills con iconos -->
+  <div class="space-y-4">
+    {
+      skills.map((skill) => (
+        <div class="flex items-center gap-3">
+          <div class="h-8 w-8 flex-shrink-0">
+            <img src={skill.icon} alt={skill.name} class="h-full w-full object-contain filter dark:brightness-90" loading="lazy" />
+          </div>
+
+          <div class="min-w-0 flex-1">
+            <div class="mb-1 flex items-center justify-between gap-2">
+              <span class="truncate text-sm font-medium text-gray-700 dark:text-gray-200">{skill.name}</span>
+            </div>
+            <div class="h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700">
+              <div class={`${barColors[color]} h-1.5 rounded-full ${skill.level} transition-all duration-500`} />
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</div>

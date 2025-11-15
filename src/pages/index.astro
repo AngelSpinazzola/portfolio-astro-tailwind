@@ -1,0 +1,48 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import HeroSection from "../components/HeroSection.astro";
+import TechnologiesSection from "../components/TechnologiesSection.astro";
+import ProjectsSection from "../components/ProjectsSection.astro";
+import EducationSection from "../components/EducationSection.astro";
+import AboutSection from "../components/AboutSection.astro";
+---
+
+<Layout title="Angel - Full Stack Developer" description="Portfolio de Angel">
+  <Header />
+
+  <HeroSection />
+  <ProjectsSection />
+  <AboutSection />
+  <TechnologiesSection />
+  <EducationSection />
+
+  <script is:inline>
+    function initAnimations() {
+      const observerOptions = {
+        threshold: 0.1,
+        rootMargin: "0px 0px -100px 0px",
+      };
+
+      const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-fade-in-up");
+            entry.target.classList.remove("opacity-0");
+          }
+        });
+      }, observerOptions);
+
+      const elements = document.querySelectorAll(".animate-on-scroll");
+      elements.forEach(function (el) {
+        observer.observe(el);
+      });
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initAnimations);
+    } else {
+      initAnimations();
+    }
+  </script>
+</Layout>

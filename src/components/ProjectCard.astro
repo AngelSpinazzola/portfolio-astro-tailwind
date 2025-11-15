@@ -1,0 +1,152 @@
+---
+// ProjectCard.astro
+import { Image } from "astro:assets";
+import githubIcon from "../assets/github.svg";
+import type { Project } from "../data/projects";
+import { techIcons } from "../data/techIcons";
+
+interface Props {
+  project: Project;
+  index: number;
+}
+
+const { project, index } = Astro.props;
+---
+
+<div class=
+  "animate-on-scroll flex min-h-[280px] flex-col 
+  items-start gap-6 rounded-xl bg-transparent p-6 opacity-0 backdrop-blur-sm 
+  transition-all duration-300 hover:-translate-y-1 
+  lg:min-h-[320px] lg:flex-row lg:p-8" style={`animation-delay: ${index * 100}ms`}>
+  <div class="image-hover-group relative aspect-video w-full overflow-visible lg:w-1/2">
+    
+    <div class="glow-1 absolute -inset-2 -z-10 rounded-lg bg-gradient-to-r from-blue-400/80 via-purple-400/80 to-pink-400/80 opacity-0 blur-lg transition-all duration-700"></div>
+    <div class="glow-2 absolute -inset-1 -z-10 rounded-lg bg-gradient-to-r from-cyan-300/60 via-blue-400/60 to-purple-500/60 opacity-0 blur-md transition-all duration-500"></div>
+
+    <div class="image-container relative transform overflow-hidden rounded-md transition-all duration-500">
+      {
+        project.image ? (
+          <>
+            <Image
+              src={project.image}
+              alt={project.title}
+              width={1200}
+              height={675}
+              format="webp"
+              quality={90}
+              loading={index === 0 ? "eager" : "lazy"}
+              class="image-element h-full w-full object-cover transition-all duration-500"
+              densities={[1, 2]}
+              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+            />
+            <div class="image-overlay absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 transition-opacity duration-300" />
+          </>
+        ) : (
+          <div class={`image-element h-full w-full bg-gradient-to-br ${project.gradient} transition-all duration-500`} />
+        )
+      }
+    </div>
+  </div>
+
+  <!-- Contenido estructurado -->
+  <div class="flex flex-1 flex-col">
+    <!-- Contenido superior -->
+    <div class="min-h-[200px] flex-grow space-y-4 lg:min-h-[220px]">
+      <!-- Título -->
+      <h3 class="text-2xl font-bold text-gray-800 dark:text-white">
+        {project.title}
+      </h3>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-2">
+        {
+          project.tags.map((tag) => (
+            <span class="flex items-center gap-1.5 rounded-full border border-gray-300/50 bg-gray-100/80 px-2 py-1 text-xs font-medium text-gray-700 backdrop-blur-sm transition-all duration-300 ease-out lg:hover:scale-[1.05] lg:hover:border-white/40 lg:hover:bg-white/15 lg:hover:shadow-[0_0_12px_rgba(255,255,255,0.45)] dark:bg-white/10 dark:text-gray-200">
+              {techIcons[tag.name] && (
+                <Image
+                  src={techIcons[tag.name]}
+                  alt={tag.name}
+                  width={16}
+                  height={16}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  class="h-4 w-4 opacity-80 dark:invert"
+                />
+              )}
+
+              {tag.name}
+            </span>
+          ))
+        }
+      </div>
+
+      <!-- Descripción -->
+      <p class="max-w-2xl text-sm leading-relaxed text-gray-600 lg:text-sm dark:text-gray-300">
+        {project.description}
+      </p>
+    </div>
+
+    <div class="mt-auto flex justify-end gap-4 pt-4">
+      {
+        project.demoUrl && (
+          <a
+            href={project.demoUrl}
+            target="_blank"
+            class="group flex items-center gap-2 rounded-lg border border-blue-400/60 px-4 py-2 text-sm text-blue-300 transition-all duration-300 hover:border-blue-400 hover:shadow-[0_0_12px_rgba(56,189,248,0.5)]"
+          >
+            <span class="text-lg leading-none transition-transform group-hover:-translate-y-[1px]">↗</span>
+            <span class="tracking-wide">Ver demo</span>
+          </a>
+        )
+      }
+
+      {
+        project.githubUrl && (
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            class="group flex items-center gap-2 rounded-lg border border-gray-500/50 px-4 py-2 text-sm text-gray-300 transition-all duration-300 hover:border-white/70 hover:shadow-[0_0_12px_rgba(255,255,255,0.45)]"
+          >
+            <Image
+              src={githubIcon}
+              alt="GitHub"
+              width={16}
+              height={16}
+              loading={index === 0 ? "eager" : "lazy"}
+              class="h-4 w-4 opacity-80 transition-transform duration-300 group-hover:scale-110 dark:invert"
+            />
+            <span class="tracking-wide">Código</span>
+          </a>
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .image-hover-group:hover .glow-2 {
+    opacity: 0.1;
+  }
+  .image-hover-group:hover .image-container {
+    transform: scale(1.02) translateY(-0.25rem);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+  .image-hover-group:hover .image-overlay {
+    opacity: 1;
+  }
+
+  @keyframes neon-pulse {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.03);
+    }
+  }
+  .image-hover-group:hover .glow-1 {
+    opacity: 0.2;
+    animation: neon-pulse 2s ease-in-out infinite;
+  }
+</style>

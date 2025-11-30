@@ -1,5 +1,5 @@
 import novaTech from "../assets/images/novatech.png";
-import panaderia from "../assets/images/panaderia.png";
+import panaderia from "../assets/images/panaderia.jpg";
 import apinetjwt from "../assets/images/endpoinds-api-jwt.png";
 import sanguis from "../assets/images/sanguis.png";
 

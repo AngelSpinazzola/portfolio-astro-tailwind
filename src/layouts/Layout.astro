@@ -3,6 +3,11 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
+
+const { title, description } = Astro.props;
+
+const siteUrl = "https://angelspinazzola.dev";
+
 ---
 
 <!doctype html>
@@ -10,9 +15,47 @@ import "@fontsource/inter/700.css";
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{Astro.props.title}</title>
-    <meta name="description" content={Astro.props.description} />
+
+    <!-- Title & Description -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={siteUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:locale" content="es_ES" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Autor -->
+    <meta name="author" content="Angel Spinazzola" />
+
+    <!-- SEO Extra -->
+    <meta name="robots" content="index, follow" />
+
+    <!-- JSON-LD (Google Rich Results) -->
+    <script type="application/ld+json">
+      {JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Angel Spinazzola",
+        "jobTitle": "Full Stack Developer",
+        "url": siteUrl,
+        "image": ogImage,
+        "sameAs": [
+          "https://github.com/AngelSpinazzola",
+          "https://www.linkedin.com/in/angel-spinazzola/"
+        ]
+      })}
+    </script>
   </head>
+
   <body class="bg-white font-sans text-gray-900 transition-colors dark:bg-gray-900 dark:text-white">
     <slot />
   </body>

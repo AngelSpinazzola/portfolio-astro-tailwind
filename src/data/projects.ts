@@ -2,6 +2,7 @@ import novaTech from "../assets/images/novatech.png";
 import panaderia from "../assets/images/panaderia.jpg";
 import apinetjwt from "../assets/images/endpoinds-api-jwt.png";
 import sanguis from "../assets/images/sanguis.png";
+import camano from "../assets/images/camano-constructora.png";
 
 export interface Project {
   id: number;
@@ -36,7 +37,7 @@ export const projects: Project[] = [
       { name: "PostgreSQL" },
     ],
     gradient: "from-blue-500 to-indigo-600",
-    label: "E-commerce App",
+    label: "E-commerce",
     demoUrl: "https://novatech-store.vercel.app/",
     githubUrl: "https://github.com/AngelSpinazzola/hardware-store-backend-api",
     image: novaTech,
@@ -63,33 +64,37 @@ export const projects: Project[] = [
   },
   {
     id: 3,
+    title: "Camaño Hidrogas",
+    description:
+      "Landing page para empresa de plomería e hidrogas. Desarrollada con Astro y Tailwind CSS, orientada al SEO local con schema.org, sitemap, meta tags y Open Graph. Diseño mobile-first con carrusel de reseñas.",
+    tags: [{ name: "Astro" }, { name: "Tailwind CSS" }, { name: "SEO" }],
+    gradient: "from-cyan-500 to-teal-700",
+    label: "Landing Page",
+    demoUrl: "https://camano-hidrogas-landing.vercel.app/", 
+    githubUrl: "https://github.com/AngelSpinazzola/camano-hidrogas-landing",
+    image: camano, 
+    featured: false,
+    year: 2025,
+  },
+  {
+    id: 4,
     title: "API Auth + JWT",
     description:
       "API RESTful para autenticación de usuarios con JWT, contraseñas hasheadas mediante ASP.NET Identity, gestión de roles y documentación interactiva con Swagger.",
-    tags: [
-      { name: ".NET 8 Web API REST" },
-      { name: "SQL Server" },
-      { name: "JWT" },
-      { name: "Entity Framework" },
-    ],
+    tags: [{ name: ".NET 8 Web API REST" }, { name: "SQL Server" }, { name: "JWT" }, { name: "Entity Framework" }],
     gradient: "from-blue-600 via-purple-600 to-indigo-800",
-    label: "Backend API",
+    label: "Backend API REST",
     githubUrl: "https://github.com/AngelSpinazzola/JwtAuthApi",
     image: apinetjwt,
     featured: false,
     year: 2025,
   },
   {
-    id: 4,
+    id: 5,
     title: "Sanguis",
     description:
       "App web con sistema de donación de sangre desarrollada con ASP.NET Web Forms (.NET Framework 4.8) y SQL Server como proyecto universitario. Incluye administración de datos, autenticación de usuarios y funcionalidades CRUD completas con arquitectura en capas.",
-    tags: [
-      { name: "ASP.NET Web Forms" },
-      { name: "SQL Server" },
-      { name: "JavaScript" },
-      { name: "CSS" },
-    ],
+    tags: [{ name: "ASP.NET Web Forms" }, { name: "SQL Server" }, { name: "JavaScript" }, { name: "CSS" }],
     gradient: "from-red-500 via-red-600 to-red-800", // Colores que van con "Sanguis"
     label: "Web Application",
     githubUrl: "https://github.com/AngelSpinazzola/TPC-Equipo-8",

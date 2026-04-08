@@ -1,51 +1,201 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Header from "../components/Header.astro";
 import HeroSection from "../components/HeroSection.astro";
-import TechnologiesSection from "../components/TechnologiesSection.astro";
 import ProjectsSection from "../components/ProjectsSection.astro";
+import TechnologiesSection from "../components/TechnologiesSection.astro";
 import EducationSection from "../components/EducationSection.astro";
-import AboutSection from "../components/AboutSection.astro";
 ---
 
-<Layout 
+<Layout
   title="Angel Spinazzola – Full Stack Developer"
   description="Portfolio profesional de Angel Spinazzola, desarrollador full stack especializado en ASP.NET, React, SQL Server y desarrollo de aplicaciones modernas."
 >
-  <Header />
+  <div id="app-window" class="flex h-screen flex-col overflow-hidden bg-zinc-50 dark:bg-zinc-950">
 
-  <HeroSection />
-  <ProjectsSection />
-  <AboutSection />
-  <TechnologiesSection />
-  <EducationSection />
+    <!-- Title Bar -->
+    <div class="flex h-9 shrink-0 select-none items-center border-b border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
+      <div class="flex flex-1 items-center gap-2.5 px-4">
+        <div class="h-2.5 w-2.5 rounded-full bg-emerald-500"></div>
+      </div>
 
-  <script is:inline>
-    function initAnimations() {
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -100px 0px",
-      };
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        class="flex h-full w-10 items-center justify-center text-zinc-400 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800"
+        aria-label="Cambiar tema"
+      >
+        <svg class="hidden h-3.5 w-3.5 dark:block" fill="currentColor" viewBox="0 0 20 20">
+          <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
+        </svg>
+        <svg class="block h-3.5 w-3.5 dark:hidden" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
+        </svg>
+      </button>
 
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up");
-            entry.target.classList.remove("opacity-0");
-          }
-        });
-      }, observerOptions);
+      <!-- Window controls -->
+      <div class="flex h-full shrink-0">
+        <button class="flex h-full w-11 items-center justify-center text-zinc-400 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800" aria-label="Minimizar">
+          <svg width="10" height="1" viewBox="0 0 10 1" fill="currentColor"><rect width="10" height="1" /></svg>
+        </button>
+        <button class="flex h-full w-11 items-center justify-center text-zinc-400 transition-colors hover:bg-zinc-200 dark:hover:bg-zinc-800" aria-label="Maximizar">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1"><rect x="0.5" y="0.5" width="9" height="9" /></svg>
+        </button>
+        <button class="flex h-full w-11 items-center justify-center text-zinc-400 transition-colors hover:bg-red-500 hover:text-white dark:hover:bg-red-600" aria-label="Cerrar">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <line x1="0" y1="0" x2="10" y2="10" />
+            <line x1="10" y1="0" x2="0" y2="10" />
+          </svg>
+        </button>
+      </div>
+    </div>
 
-      const elements = document.querySelectorAll(".animate-on-scroll");
-      elements.forEach(function (el) {
-        observer.observe(el);
+    <!-- Tab Bar -->
+    <div class="tab-bar flex shrink-0 border-b border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
+      <button class="tab" data-tab="home">Inicio</button>
+      <button class="tab" data-tab="projects">Proyectos</button>
+      <button class="tab" data-tab="stack">Stack</button>
+      <button class="tab" data-tab="education">Educación</button>
+    </div>
+
+    <!-- Content Area -->
+    <div class="relative flex-1 overflow-hidden">
+
+      <div id="tab-home" class="tab-panel overflow-auto">
+        <HeroSection />
+      </div>
+
+      <div id="tab-projects" class="tab-panel overflow-auto">
+        <ProjectsSection />
+      </div>
+
+      <div id="tab-stack" class="tab-panel h-full overflow-auto">
+        <TechnologiesSection />
+      </div>
+
+      <div id="tab-education" class="tab-panel h-full overflow-auto">
+        <EducationSection />
+      </div>
+
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .tab {
+    @apply relative flex h-9 flex-1 cursor-pointer items-center justify-center border-r border-zinc-200 px-5 text-sm text-zinc-500 transition-colors duration-150 hover:bg-zinc-200/60 sm:flex-none sm:justify-start dark:border-zinc-800 dark:text-zinc-400 dark:hover:bg-zinc-800/50;
+    white-space: nowrap;
+  }
+
+  .tab.active {
+    @apply bg-zinc-50 text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100;
+  }
+
+  .tab.active::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background-color: #10b981;
+  }
+
+  .tab-panel {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .tab-panel.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Alinear desde arriba */
+  #tab-home,
+  #tab-projects,
+  #tab-stack,
+  #tab-education {
+    justify-content: flex-start;
+  }
+
+  /* Ocultar scrollbar en tab bar (mobile) */
+  .tab-bar {
+    overflow-x: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .tab-bar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const saved = localStorage.getItem("theme");
+    const theme = saved || "dark";
+    if (theme === "dark") document.documentElement.classList.add("dark");
+  })();
+
+  const visited = new Set();
+
+  function triggerAnimations(panel) {
+    if (visited.has(panel.id)) return;
+    visited.add(panel.id);
+
+    const elements = panel.querySelectorAll(".animate-on-scroll");
+    elements.forEach(function (el, i) {
+      setTimeout(function () {
+        el.classList.add("animate-fade-in-up");
+        el.classList.remove("opacity-0");
+      }, i * 60);
+    });
+  }
+
+  function activateTab(tabId) {
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".tab-panel");
+
+    tabs.forEach(function (t) { t.classList.remove("active"); });
+    panels.forEach(function (p) { p.classList.remove("active"); });
+
+    const tab = document.querySelector('[data-tab="' + tabId + '"]');
+    const panel = document.getElementById("tab-" + tabId);
+
+    if (tab) tab.classList.add("active");
+    if (panel) {
+      panel.classList.add("active");
+      triggerAnimations(panel);
+    }
+  }
+
+  function initWindow() {
+    activateTab("home");
+
+    document.querySelectorAll(".tab").forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        activateTab(tab.dataset.tab);
+      });
+    });
+
+    const toggle = document.getElementById("theme-toggle");
+    if (toggle) {
+      toggle.addEventListener("click", function () {
+        document.documentElement.classList.toggle("dark");
+        const next = document.documentElement.classList.contains("dark") ? "dark" : "light";
+        localStorage.setItem("theme", next);
       });
     }
+  }
 
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initAnimations);
-    } else {
-      initAnimations();
-    }
-  </script>
-</Layout>
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initWindow);
+  } else {
+    initWindow();
+  }
+</script>

@@ -3,24 +3,24 @@ import { Image } from "astro:assets";
 import heroImage from "../assets/images/angel.png";
 ---
 
-<section id="home" class="pb-24 pt-16 lg:pb-32 lg:pt-24">
+<section id="home" class="px-6 pb-12 pt-20 lg:pb-16 lg:pt-44">
   <div class="container mx-auto px-6">
     <div class="mx-auto max-w-4xl">
-      <div class="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-20">
+      <div class="flex flex-col items-center gap-12 lg:flex-row lg:items-center lg:gap-24">
 
         <!-- Foto -->
         <div class="order-1 shrink-0 lg:order-2">
           <div class="relative">
-            <div class="absolute -inset-1 rounded-full bg-emerald-500/15 blur-md"></div>
+            <div class="absolute -inset-2 rounded-full bg-emerald-500/15 blur-lg"></div>
             <Image
               src={heroImage}
               alt="Angel Spinazzola"
-              width={240}
-              height={240}
+              width={320}
+              height={320}
               format="webp"
               loading="eager"
               fetchpriority="high"
-              class="relative h-36 w-36 rounded-full object-cover ring-2 ring-emerald-500/25 lg:h-44 lg:w-44"
+              class="relative h-44 w-44 rounded-full object-cover ring-2 ring-emerald-500/25 lg:h-56 lg:w-56"
             />
           </div>
         </div>
@@ -38,6 +38,14 @@ import heroImage from "../assets/images/angel.png";
               Técnico Universitario en Programación · UTN
             </p>
           </div>
+
+          <!-- Bio -->
+          <p class="max-w-md text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+            Trabajo con una mentalidad orientada a procesos: entender el problema, diseñar la solución
+            y construir software claro, escalable y mantenible. Creo firmemente en el
+            <span class="font-medium text-emerald-600 dark:text-emerald-400">aprendizaje continuo</span>
+            como la clave para evolucionar como desarrollador.
+          </p>
 
           <!-- Links -->
           <div class="flex flex-wrap items-center justify-center gap-2 lg:justify-start">

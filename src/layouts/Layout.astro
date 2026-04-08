@@ -43,34 +43,22 @@ const jsonLd = JSON.stringify({
     <meta name="author" content="Angel Spinazzola" />
     <meta name="robots" content="index, follow" />
 
-    <script type="application/ld+json" set:html={jsonLd} />
+    <script is:inline type="application/ld+json" set:html={jsonLd} />
   </head>
 
-  <body class="bg-zinc-50 font-sans text-zinc-900 antialiased transition-colors duration-300 dark:bg-zinc-950 dark:text-zinc-100">
+  <body class="h-full bg-zinc-50 font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100">
     <slot />
   </body>
 </html>
 
 <style is:global>
-  html {
-    scroll-behavior: smooth;
-  }
-
+  html,
   body {
-    padding-top: 5rem;
-  }
-
-  section[id] {
-    scroll-margin-top: 5rem;
+    height: 100%;
+    overflow: hidden;
   }
 
   .opacity-0 {
     opacity: 0;
-  }
-
-  @media (max-width: 768px) {
-    body {
-      padding-top: 4.5rem;
-    }
   }
 </style>

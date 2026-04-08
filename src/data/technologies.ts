@@ -7,12 +7,12 @@ import tailwindIcon from "../assets/tech-icons/tailwindcss-original.svg";
 import bootstrapIcon from "../assets/tech-icons/bootstrap-original.svg";
 import javascriptIcon from "../assets/tech-icons/javascript-original.svg";
 import css3Icon from "../assets/tech-icons/css3-original.svg";
-import html5Icon from "../assets/tech-icons/html5-original.svg";
+import astroIcon from "../assets/tech-icons/astro-original.svg";
 import mysqlIcon from "../assets/tech-icons/mysql-original.svg";
 import postgresqlIcon from "../assets/tech-icons/postgresql-original.svg";
 import sqlserverIcon from "../assets/tech-icons/microsoftsqlserver-plain.svg";
 import dockerIcon from "../assets/tech-icons/docker-original.svg";
-import gitIcon from "../assets/tech-icons/git-original.svg";
+import gitIcon from "../assets/tech-icons/github.svg";
 
 export interface Technology {
   name: string;
@@ -28,10 +28,10 @@ export const technologies: Technology[] = [
   { name: "Bootstrap", icon: bootstrapIcon },
   { name: "JavaScript", icon: javascriptIcon },
   { name: "CSS", icon: css3Icon },
-  { name: "HTML", icon: html5Icon },
+  { name: "Astro", icon: astroIcon },
   { name: "MySQL", icon: mysqlIcon },
   { name: "PostgreSQL", icon: postgresqlIcon },
   { name: "SQL Server", icon: sqlserverIcon },
   { name: "Docker", icon: dockerIcon },
-  { name: "Git", icon: gitIcon },
+  { name: "GitHub", icon: gitIcon },
 ];

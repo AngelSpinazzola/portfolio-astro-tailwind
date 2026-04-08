@@ -68,11 +68,11 @@ import EducationSection from "../components/EducationSection.astro";
         <ProjectsSection />
       </div>
 
-      <div id="tab-stack" class="tab-panel h-full overflow-auto">
+      <div id="tab-stack" class="tab-panel overflow-auto">
         <TechnologiesSection />
       </div>
 
-      <div id="tab-education" class="tab-panel h-full overflow-auto">
+      <div id="tab-education" class="tab-panel overflow-auto">
         <EducationSection />
       </div>
 
@@ -109,11 +109,30 @@ import EducationSection from "../components/EducationSection.astro";
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow-y: scroll;
+    scrollbar-gutter: stable;
   }
 
   .tab-panel.active {
     opacity: 1;
     pointer-events: auto;
+  }
+
+  /* Fondo grid lines + glow global */
+  .tab-panel {
+    background-image:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(16, 185, 129, 0.1), transparent),
+      linear-gradient(rgba(161, 161, 170, 0.12) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(161, 161, 170, 0.12) 1px, transparent 1px);
+    background-size: auto, 40px 40px, 40px 40px;
+  }
+
+  :global(.dark) .tab-panel {
+    background-image:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(16, 185, 129, 0.08), transparent),
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: auto, 40px 40px, 40px 40px;
   }
 
   /* Alinear desde arriba */
@@ -122,6 +141,25 @@ import EducationSection from "../components/EducationSection.astro";
   #tab-stack,
   #tab-education {
     justify-content: flex-start;
+  }
+
+  /* Scrollbar de los paneles */
+  .tab-panel {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(161, 161, 170, 0.25) transparent;
+  }
+  .tab-panel::-webkit-scrollbar {
+    width: 4px;
+  }
+  .tab-panel::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .tab-panel::-webkit-scrollbar-thumb {
+    background: rgba(161, 161, 170, 0.25);
+    border-radius: 2px;
+  }
+  .tab-panel::-webkit-scrollbar-thumb:hover {
+    background: rgba(52, 211, 153, 0.5);
   }
 
   /* Ocultar scrollbar en tab bar (mobile) */

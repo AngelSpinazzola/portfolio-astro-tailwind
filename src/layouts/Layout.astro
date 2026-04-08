@@ -7,6 +7,17 @@ import "@fontsource/inter/700.css";
 const { title, description } = Astro.props;
 const siteUrl = "https://angelspinazzola.dev";
 
+const jsonLd = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Angel Spinazzola",
+  "jobTitle": "Full Stack Developer",
+  "url": siteUrl,
+  "sameAs": [
+    "https://github.com/AngelSpinazzola",
+    "https://www.linkedin.com/in/angel-spinazzola/"
+  ]
+});
 ---
 
 <!doctype html>
@@ -15,95 +26,51 @@ const siteUrl = "https://angelspinazzola.dev";
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Title & Description -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={siteUrl} />
 
-    <!-- Open Graph -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={siteUrl} />
     <meta property="og:locale" content="es_ES" />
 
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
 
-    <!-- Autor -->
     <meta name="author" content="Angel Spinazzola" />
-
-    <!-- SEO Extra -->
     <meta name="robots" content="index, follow" />
 
-    <!-- JSON-LD (Google Rich Results) -->
-    <script type="application/ld+json">
-      {JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Angel Spinazzola",
-        "jobTitle": "Full Stack Developer",
-        "url": siteUrl,
-        "image": ogImage,
-        "sameAs": [
-          "https://github.com/AngelSpinazzola",
-          "https://www.linkedin.com/in/angel-spinazzola/"
-        ]
-      })}
-    </script>
+    <script type="application/ld+json" set:html={jsonLd} />
   </head>
 
-  <body class="bg-white font-sans text-gray-900 transition-colors dark:bg-gray-900 dark:text-white">
+  <body class="bg-zinc-50 font-sans text-zinc-900 antialiased transition-colors duration-300 dark:bg-zinc-950 dark:text-zinc-100">
     <slot />
   </body>
 </html>
 
 <style is:global>
-  body {
-    font-family:
-      "Inter",
-      system-ui,
-      -apple-system,
-      sans-serif;
-    background: linear-gradient(135deg, #afafaf 0%, #ffffff 50%, #cfcfcf 100%);
-    padding-top: 5rem;
-  }
-
-  .dark body {
-    background: linear-gradient(135deg, #0a0a0f 0%, #1a1625 50%, #0a0a0f 100%);
-  }
-
-  section {
-    background: transparent !important;
-  }
-
-  section .bg-white {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-  }
-
-  .dark section .bg-white {
-    background-color: rgba(7, 12, 26, 0.8) !important;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
   html {
     scroll-behavior: smooth;
+  }
+
+  body {
+    padding-top: 5rem;
   }
 
   section[id] {
     scroll-margin-top: 5rem;
   }
 
+  .opacity-0 {
+    opacity: 0;
+  }
+
   @media (max-width: 768px) {
     body {
-      padding-top: 6.5rem;
+      padding-top: 4.5rem;
     }
   }
 </style>

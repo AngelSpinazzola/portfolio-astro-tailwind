@@ -109,8 +109,14 @@ import EducationSection from "../components/EducationSection.astro";
     display: flex;
     flex-direction: column;
     justify-content: center;
-    overflow-y: scroll;
-    scrollbar-gutter: stable;
+    overflow-y: auto;
+  }
+
+  @media (min-width: 768px) {
+    .tab-panel {
+      overflow-y: scroll;
+      scrollbar-gutter: stable;
+    }
   }
 
   .tab-panel.active {

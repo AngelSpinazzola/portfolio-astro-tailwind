@@ -18,7 +18,7 @@ import { technologies } from "../data/technologies";
       <div class="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
         {technologies.map((tech, i) => (
           <div
-            class="animate-on-scroll tech-card group flex flex-col items-center gap-2.5 rounded-xl border border-zinc-200 p-4 opacity-0 transition-all duration-200 hover:border-emerald-500/40 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:border-emerald-500/30 dark:hover:bg-zinc-900/60"
+            class="animate-on-scroll tech-card group flex flex-col items-center gap-2.5 rounded-xl border border-zinc-200 bg-zinc-50 p-4 opacity-0 transition-all duration-200 hover:border-emerald-500/40 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-emerald-500/30"
             style={`animation-delay: ${i * 35}ms`}
           >
             <Image

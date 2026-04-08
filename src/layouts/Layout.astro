@@ -3,6 +3,9 @@ import "@fontsource/inter/400.css";
 import "@fontsource/inter/500.css";
 import "@fontsource/inter/600.css";
 import "@fontsource/inter/700.css";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/600.css";
+import "@fontsource/space-grotesk/700.css";
 
 const { title, description } = Astro.props;
 const siteUrl = "https://angelspinazzola.dev";
@@ -61,4 +64,9 @@ const jsonLd = JSON.stringify({
   .opacity-0 {
     opacity: 0;
   }
+
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+  }
+
 </style>

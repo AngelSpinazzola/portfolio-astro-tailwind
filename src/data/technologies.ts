@@ -14,24 +14,31 @@ import sqlserverIcon from "../assets/tech-icons/microsoftsqlserver-plain.svg";
 import dockerIcon from "../assets/tech-icons/docker-original.svg";
 import gitIcon from "../assets/tech-icons/github.svg";
 
+export type TechCategory = "Backend" | "Frontend" | "DevOps & Tools";
+
 export interface Technology {
   name: string;
   icon: any;
+  category: TechCategory;
 }
 
 export const technologies: Technology[] = [
-  { name: "C#", icon: csharpIcon },
-  { name: ".NET", icon: dotnetIcon },
-  { name: "React", icon: reactIcon },
-  { name: "TypeScript", icon: typescriptIcon },
-  { name: "Tailwind CSS", icon: tailwindIcon },
-  { name: "Bootstrap", icon: bootstrapIcon },
-  { name: "JavaScript", icon: javascriptIcon },
-  { name: "CSS", icon: css3Icon },
-  { name: "Astro", icon: astroIcon },
-  { name: "MySQL", icon: mysqlIcon },
-  { name: "PostgreSQL", icon: postgresqlIcon },
-  { name: "SQL Server", icon: sqlserverIcon },
-  { name: "Docker", icon: dockerIcon },
-  { name: "GitHub", icon: gitIcon },
+  { name: "C#",         icon: csharpIcon,     category: "Backend" },
+  { name: ".NET",       icon: dotnetIcon,      category: "Backend" },
+  { name: "MySQL",      icon: mysqlIcon,       category: "Backend" },
+  { name: "PostgreSQL", icon: postgresqlIcon,  category: "Backend" },
+  { name: "SQL Server", icon: sqlserverIcon,   category: "Backend" },
+
+  { name: "React",       icon: reactIcon,      category: "Frontend" },
+  { name: "TypeScript",  icon: typescriptIcon, category: "Frontend" },
+  { name: "JavaScript",  icon: javascriptIcon, category: "Frontend" },
+  { name: "Tailwind CSS",icon: tailwindIcon,   category: "Frontend" },
+  { name: "Bootstrap",   icon: bootstrapIcon,  category: "Frontend" },
+  { name: "CSS",         icon: css3Icon,       category: "Frontend" },
+  { name: "Astro",       icon: astroIcon,      category: "Frontend" },
+
+  { name: "Docker", icon: dockerIcon, category: "DevOps & Tools" },
+  { name: "GitHub", icon: gitIcon,    category: "DevOps & Tools" },
 ];
+
+export const techCategories: TechCategory[] = ["Backend", "Frontend", "DevOps & Tools"];

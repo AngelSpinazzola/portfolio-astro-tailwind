@@ -13,10 +13,26 @@ import EducationSection from "../components/EducationSection.astro";
   <div id="app-window" class="flex h-screen flex-col overflow-hidden bg-zinc-50 dark:bg-zinc-950">
 
     <!-- Title Bar -->
-    <div class="flex h-9 shrink-0 select-none items-center border-b border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
+    <div id="title-bar" class="relative flex h-9 shrink-0 select-none items-center border-b border-zinc-200 bg-zinc-100 dark:border-zinc-800 dark:bg-zinc-900">
       <div class="flex flex-1 items-center gap-2.5 px-4">
         <div class="h-2.5 w-2.5 rounded-full bg-emerald-500"></div>
       </div>
+
+      <!-- Título dinámico centrado -->
+      <span id="window-title" class="pointer-events-none absolute left-1/2 -translate-x-1/2 text-xs font-medium text-zinc-400 dark:text-zinc-500"></span>
+
+      <!-- Terminal button -->
+      <button
+        id="terminal-btn"
+        class="flex h-full w-10 items-center justify-center text-zinc-400 transition-colors hover:bg-zinc-200 hover:text-zinc-700 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+        aria-label="Abrir terminal"
+        title="Terminal (Ctrl+5)"
+      >
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="2,4 6,7 2,10" />
+          <line x1="7" y1="10" x2="12" y2="10" />
+        </svg>
+      </button>
 
       <!-- Theme toggle -->
       <button
@@ -80,6 +96,26 @@ import EducationSection from "../components/EducationSection.astro";
         <EducationSection />
       </div>
 
+    </div>
+  </div>
+
+  <!-- Terminal Easter Egg -->
+  <div id="terminal-overlay" class="terminal-overlay" role="dialog" aria-label="Terminal">
+    <div class="terminal-window">
+      <div class="terminal-titlebar">
+        <div class="flex items-center gap-1.5">
+          <button id="terminal-close-dot" class="h-3 w-3 rounded-full bg-red-500 transition-opacity hover:opacity-80"></button>
+          <span class="h-3 w-3 rounded-full bg-yellow-500 opacity-30"></span>
+          <span class="h-3 w-3 rounded-full bg-emerald-500 opacity-30"></span>
+        </div>
+        <span class="terminal-titlebar-name">bash — angel@portfolio</span>
+        <span class="w-16"></span>
+      </div>
+      <div id="terminal-output" class="terminal-output"></div>
+      <div class="terminal-input-row">
+        <span class="terminal-prompt">angel@portfolio:~$&nbsp;</span>
+        <input id="terminal-input" type="text" class="terminal-input" autocomplete="off" spellcheck="false" />
+      </div>
     </div>
   </div>
 
@@ -201,14 +237,22 @@ import EducationSection from "../components/EducationSection.astro";
 
   /* Modo ventana flotante */
   #app-window {
-    transition: margin 0.3s ease, border-radius 0.3s ease, box-shadow 0.3s ease, height 0.3s ease;
+    transition: border-radius 0.3s ease, box-shadow 0.3s ease;
   }
 
   #app-window.windowed {
-    margin: 1.5rem;
+    position: fixed;
     border-radius: 0.75rem;
-    height: calc(100vh - 3rem);
     box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+  }
+
+  #title-bar.is-draggable {
+    cursor: grab;
+  }
+
+  #title-bar.is-dragging {
+    cursor: grabbing;
   }
 
   body.show-desktop {
@@ -254,6 +298,98 @@ import EducationSection from "../components/EducationSection.astro";
 
   .overlay-btn-primary {
     @apply inline-flex items-center gap-2 rounded-lg border border-emerald-500/50 bg-emerald-500/10 px-5 py-2.5 text-sm font-medium text-emerald-400 transition-all duration-200 hover:border-emerald-500 hover:bg-emerald-500/20;
+  }
+
+  /* ── Terminal ── */
+  .terminal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+  }
+
+  .terminal-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .terminal-window {
+    width: min(680px, 92vw);
+    display: flex;
+    flex-direction: column;
+    background: #0c0c0c;
+    border: 1px solid #27272a;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.8);
+    transform: translateY(10px) scale(0.97);
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .terminal-overlay.visible .terminal-window {
+    transform: translateY(0) scale(1);
+  }
+
+  .terminal-titlebar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 1rem;
+    background: #111;
+    border-bottom: 1px solid #1c1c1c;
+    user-select: none;
+  }
+
+  .terminal-titlebar-name {
+    font-size: 0.7rem;
+    color: #3f3f46;
+    font-family: ui-monospace, monospace;
+  }
+
+  .terminal-output {
+    padding: 1rem;
+    font-family: ui-monospace, 'Cascadia Code', monospace;
+    font-size: 0.8rem;
+    line-height: 1.65;
+    color: #a1a1aa;
+    min-height: 180px;
+    max-height: 52vh;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #27272a transparent;
+  }
+
+  .terminal-input-row {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem 0.65rem;
+    border-top: 1px solid #1c1c1c;
+  }
+
+  .terminal-prompt {
+    color: #10b981;
+    font-family: ui-monospace, monospace;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  .terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e4e4e7;
+    font-family: ui-monospace, monospace;
+    font-size: 0.8rem;
+    caret-color: #10b981;
   }
 
   /* Scrollbar de los paneles */
@@ -308,6 +444,8 @@ import EducationSection from "../components/EducationSection.astro";
     });
   }
 
+  var tabLabels = { home: "Inicio", projects: "Proyectos", stack: "Stack", education: "Educación" };
+
   function activateTab(tabId) {
     const tabs = document.querySelectorAll(".tab");
     const panels = document.querySelectorAll(".tab-panel");
@@ -323,6 +461,9 @@ import EducationSection from "../components/EducationSection.astro";
       panel.classList.add("active");
       triggerAnimations(panel);
     }
+
+    const titleEl = document.getElementById("window-title");
+    if (titleEl) titleEl.textContent = "Angel Spinazzola — " + (tabLabels[tabId] || "");
   }
 
   function initWindow() {
@@ -343,22 +484,239 @@ import EducationSection from "../components/EducationSection.astro";
       });
     }
 
-    // Maximize toggle
+    // Maximize toggle + drag
     const maximizeBtn = document.getElementById("maximize-btn");
-    const appWindow = document.getElementById("app-window");
+    const appWindow   = document.getElementById("app-window");
+    const titleBar    = document.getElementById("title-bar");
     const iconMaximize = document.getElementById("icon-maximize");
-    const iconRestore = document.getElementById("icon-restore");
+    const iconRestore  = document.getElementById("icon-restore");
     let isWindowed = false;
+
+    function enterWindowed() {
+      const m = 24;
+      appWindow.style.left   = m + "px";
+      appWindow.style.top    = m + "px";
+      appWindow.style.width  = (window.innerWidth  - m * 2) + "px";
+      appWindow.style.height = (window.innerHeight - m * 2) + "px";
+      appWindow.classList.add("windowed");
+      document.body.classList.add("show-desktop");
+      iconMaximize.classList.add("hidden");
+      iconRestore.classList.remove("hidden");
+      titleBar.classList.add("is-draggable");
+      isWindowed = true;
+    }
+
+    function exitWindowed() {
+      appWindow.classList.remove("windowed");
+      appWindow.style.left = appWindow.style.top = "";
+      appWindow.style.width = appWindow.style.height = "";
+      document.body.classList.remove("show-desktop");
+      iconMaximize.classList.remove("hidden");
+      iconRestore.classList.add("hidden");
+      titleBar.classList.remove("is-draggable", "is-dragging");
+      isWindowed = false;
+    }
 
     if (maximizeBtn) {
       maximizeBtn.addEventListener("click", function () {
-        isWindowed = !isWindowed;
-        appWindow.classList.toggle("windowed", isWindowed);
-        document.body.classList.toggle("show-desktop", isWindowed);
-        iconMaximize.classList.toggle("hidden", isWindowed);
-        iconRestore.classList.toggle("hidden", !isWindowed);
+        if (isWindowed) exitWindowed(); else enterWindowed();
       });
     }
+
+    // Doble-click en title bar → toggle windowed
+    titleBar.addEventListener("dblclick", function (e) {
+      if (e.target.closest("button")) return;
+      if (isWindowed) exitWindowed(); else enterWindowed();
+    });
+
+    // Drag
+    let dragging = false, ox = 0, oy = 0;
+
+    titleBar.addEventListener("mousedown", function (e) {
+      if (!isWindowed || e.target.closest("button")) return;
+      dragging = true;
+      const r = appWindow.getBoundingClientRect();
+      ox = e.clientX - r.left;
+      oy = e.clientY - r.top;
+      titleBar.classList.add("is-dragging");
+      e.preventDefault();
+    });
+
+    document.addEventListener("mousemove", function (e) {
+      if (!dragging) return;
+      const maxX = window.innerWidth  - appWindow.offsetWidth;
+      const maxY = window.innerHeight - 36;
+      const x = Math.max(0, Math.min(e.clientX - ox, maxX));
+      const y = Math.max(0, Math.min(e.clientY - oy, maxY));
+      appWindow.style.left = x + "px";
+      appWindow.style.top  = y + "px";
+    });
+
+    document.addEventListener("mouseup", function () {
+      if (!dragging) return;
+      dragging = false;
+      titleBar.classList.remove("is-dragging");
+    });
+
+    // ── Keyboard shortcuts ──
+    var tabOrder = ["home", "projects", "stack", "education"];
+
+    document.addEventListener("keydown", function (e) {
+      // Ctrl+1-4 → cambiar pestaña
+      if (e.ctrlKey && !e.shiftKey && !e.altKey && e.key >= "1" && e.key <= "4") {
+        var idx = parseInt(e.key) - 1;
+        if (tabOrder[idx]) { e.preventDefault(); activateTab(tabOrder[idx]); }
+      }
+      // Ctrl+5 → terminal
+      if (e.ctrlKey && e.key === "5") {
+        e.preventDefault();
+        if (terminalOpen) closeTerminal(); else openTerminal();
+      }
+    });
+
+    // ── Terminal ──
+    var terminalOpen = false;
+    var cmdHistory = [], histIdx = -1;
+
+    function esc(s) {
+      return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    }
+
+    function termAppend(html) {
+      var out = document.getElementById("terminal-output");
+      (Array.isArray(html) ? html : [html]).forEach(function (line) {
+        var d = document.createElement("div");
+        d.innerHTML = line === "" ? "&nbsp;" : line;
+        out.appendChild(d);
+      });
+      out.scrollTop = out.scrollHeight;
+    }
+
+    var CMDS = {
+      help: function () {
+        termAppend([
+          '<span style="color:#10b981">Comandos disponibles:</span>',
+          '  <span style="color:#e4e4e7">whoami</span>          — info sobre el dev',
+          '  <span style="color:#e4e4e7">ls</span>              — listar secciones',
+          '  <span style="color:#e4e4e7">cat about.txt</span>   — sobre mí',
+          '  <span style="color:#e4e4e7">cat skills.txt</span>  — stack técnico',
+          '  <span style="color:#e4e4e7">cd &lt;sección&gt;</span>    — navegar (inicio · proyectos · stack · educacion)',
+          '  <span style="color:#e4e4e7">clear</span>           — limpiar terminal',
+          '  <span style="color:#e4e4e7">exit</span>            — cerrar terminal',
+          "",
+        ]);
+      },
+      whoami: function () {
+        termAppend([
+          '<span style="color:#10b981">Angel Spinazzola</span>',
+          'Full Stack Developer · Buenos Aires, Argentina',
+          'Stack: C# · .NET · React · TypeScript · SQL',
+          "",
+        ]);
+      },
+      ls: function () {
+        termAppend([
+          '<span style="color:#10b981">inicio/</span>  <span style="color:#10b981">proyectos/</span>  <span style="color:#10b981">stack/</span>  <span style="color:#10b981">educacion/</span>',
+          "",
+        ]);
+      },
+      "cat about.txt": function () {
+        termAppend([
+          "Soy desarrollador Full Stack apasionado por construir",
+          "aplicaciones web modernas y funcionales.",
+          "",
+          "Me especializo en el ecosistema .NET para backend",
+          "y React + TypeScript para frontend.",
+          "",
+        ]);
+      },
+      "cat skills.txt": function () {
+        termAppend([
+          '<span style="color:#10b981">Backend:</span>   C# · .NET · MySQL · PostgreSQL · SQL Server',
+          '<span style="color:#10b981">Frontend:</span>  React · TypeScript · JavaScript · Tailwind · Astro',
+          '<span style="color:#10b981">DevOps:</span>    Docker · GitHub',
+          "",
+        ]);
+      },
+      clear: function () {
+        document.getElementById("terminal-output").innerHTML = "";
+      },
+      exit: function () { closeTerminal(); },
+      quit: function () { closeTerminal(); },
+    };
+
+    function runCmd(raw) {
+      var cmd = raw.trim();
+      termAppend('<span style="color:#10b981">angel@portfolio:~$</span>&nbsp;' + esc(cmd));
+      if (!cmd) return;
+
+      if (cmd.toLowerCase().startsWith("cd ")) {
+        var map = { inicio:"home", proyectos:"projects", stack:"stack", educacion:"education" };
+        var dest = map[cmd.slice(3).trim().toLowerCase()];
+        if (dest) { activateTab(dest); closeTerminal(); }
+        else termAppend('<span style="color:#f87171">cd: ' + esc(cmd.slice(3).trim()) + ': No such directory</span>');
+        return;
+      }
+
+      var handler = CMDS[cmd.toLowerCase()];
+      if (handler) handler();
+      else termAppend('<span style="color:#f87171">bash: ' + esc(cmd) + ': command not found</span>');
+    }
+
+    function openTerminal() {
+      var overlay = document.getElementById("terminal-overlay");
+      var out = document.getElementById("terminal-output");
+      if (!terminalOpen) {
+        out.innerHTML = "";
+        termAppend([
+          '<span style="color:#10b981">Portfolio Terminal</span> <span style="color:#3f3f46">— Ctrl+5 para cerrar</span>',
+          '<span style="color:#52525b">Escribí <span style="color:#a1a1aa">help</span> para ver los comandos.</span>',
+          "",
+        ]);
+      }
+      overlay.classList.add("visible");
+      terminalOpen = true;
+      setTimeout(function () { document.getElementById("terminal-input").focus(); }, 50);
+    }
+
+    function closeTerminal() {
+      document.getElementById("terminal-overlay").classList.remove("visible");
+      terminalOpen = false;
+    }
+
+    var termInput = document.getElementById("terminal-input");
+    if (termInput) {
+      termInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          var val = termInput.value;
+          cmdHistory.unshift(val);
+          histIdx = -1;
+          termInput.value = "";
+          runCmd(val);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          if (histIdx < cmdHistory.length - 1) termInput.value = cmdHistory[++histIdx];
+        } else if (e.key === "ArrowDown") {
+          e.preventDefault();
+          if (histIdx > 0) termInput.value = cmdHistory[--histIdx];
+          else { histIdx = -1; termInput.value = ""; }
+        } else if (e.key === "Escape") {
+          closeTerminal();
+        }
+      });
+    }
+
+    var termBtn = document.getElementById("terminal-btn");
+    if (termBtn) termBtn.addEventListener("click", function () {
+      if (terminalOpen) closeTerminal(); else openTerminal();
+    });
+
+    var termCloseDot = document.getElementById("terminal-close-dot");
+    if (termCloseDot) termCloseDot.addEventListener("click", closeTerminal);
+
+    document.getElementById("terminal-overlay").addEventListener("click", function (e) {
+      if (e.target === this) closeTerminal();
+    });
 
     // Close overlay
     const closeBtn = document.getElementById("close-btn");

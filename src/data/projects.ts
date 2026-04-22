@@ -1,4 +1,4 @@
-import novaTech from "../assets/images/novatech.png";
+import novaTech from "../assets/images/novatech-mockup.png";
 import panaderia from "../assets/images/panaderia.jpg";
 import apinetjwt from "../assets/images/endpoinds-api-jwt.png";
 import sanguis from "../assets/images/sanguis.png";
@@ -16,6 +16,7 @@ export interface Project {
   demoUrl?: string;
   githubUrl?: string;
   image?: ImageMetadata;
+  mobileImage?: ImageMetadata;
   featured?: boolean;
   year?: number;
   icon?: string;

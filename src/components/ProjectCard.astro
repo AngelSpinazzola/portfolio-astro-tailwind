@@ -15,7 +15,7 @@ const { project, index } = Astro.props;
   class="animate-on-scroll card group flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200 bg-white opacity-0 dark:border-zinc-800 dark:bg-zinc-900"
   style={`animation-delay: ${index * 80}ms`}
 >
-  <!-- Imagen -->
+  <!-- Preview -->
   <div class="aspect-video w-full overflow-hidden bg-zinc-100 dark:bg-zinc-800/50">
     {project.image ? (
       <Image
@@ -97,6 +97,7 @@ const { project, index } = Astro.props;
 </article>
 
 <style>
+  /* ── Card hover ── */
   .card {
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, opacity 0.5s ease;
   }

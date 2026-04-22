@@ -11,6 +11,14 @@ import EducationSection from "../components/EducationSection.astro";
   description="Portfolio profesional de Angel Spinazzola, desarrollador full stack especializado en ASP.NET, React, SQL Server y desarrollo de aplicaciones modernas."
 >
 
+  <!-- Background blobs + noise -->
+  <div class="bg-blobs" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+    <div class="noise-layer"></div>
+  </div>
+
   <!-- Navbar -->
   <header id="navbar" class="fixed top-0 z-50 w-full border-b border-zinc-200/80 bg-zinc-50/90 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/90">
     <div class="mx-auto flex h-12 max-w-5xl items-center justify-end px-6 sm:grid sm:grid-cols-3">
@@ -78,6 +86,63 @@ import EducationSection from "../components/EducationSection.astro";
 </Layout>
 
 <style>
+  /* ── Background blobs ── */
+  .bg-blobs {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+  }
+
+  .blob-1 {
+    width: 600px;
+    height: 600px;
+    background: #10b981;
+    top: -180px;
+    right: -80px;
+    opacity: 0.07;
+  }
+
+  .blob-2 {
+    width: 500px;
+    height: 500px;
+    background: #6366f1;
+    bottom: -120px;
+    left: -80px;
+    opacity: 0.07;
+  }
+
+  .blob-3 {
+    width: 400px;
+    height: 400px;
+    background: #10b981;
+    bottom: 20%;
+    right: 15%;
+    opacity: 0.04;
+  }
+
+  :global(.dark) .blob-1 { opacity: 0.14; }
+  :global(.dark) .blob-2 { opacity: 0.10; }
+  :global(.dark) .blob-3 { opacity: 0.07; }
+
+  .noise-layer {
+    position: absolute;
+    inset: 0;
+    opacity: 0.032;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 200px 200px;
+  }
+
+  :global(.dark) .noise-layer { opacity: 0.05; }
+
   /* ── Navbar ── */
   .nav-link {
     padding: 0.25rem 0.75rem;

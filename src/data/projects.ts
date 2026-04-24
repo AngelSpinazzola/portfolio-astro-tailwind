@@ -1,5 +1,5 @@
 import novaTech from "../assets/images/novatech-mockup.png";
-import panaderia from "../assets/images/panaderia.jpg";
+import panaderia from "../assets/images/panaderia-mockup.png";
 import apinetjwt from "../assets/images/endpoinds-api-jwt.png";
 import sanguis from "../assets/images/sanguis.png";
 import camano from "../assets/images/camano-constructora.png";
@@ -25,9 +25,9 @@ export interface Project {
 export const projects: Project[] = [
   {
     id: 1,
-    title: "NOVATECH Hardware Store",
+    title: "NovaTech",
     description:
-      "E-commerce full-stack para venta de hardware, con catálogo avanzado, carrito, gestión de órdenes, administración completa, autenticación con Google y JWT+Bcrypt.",
+      'E-commerce full-stack de hardware para PC, con catálogo de filtros avanzados, carrito persistente, checkout <span class="text-zinc-900 dark:text-white font-medium">(MercadoPago y Transferencias)</span>, seguimiento de órdenes y autenticación con <span class="text-zinc-900 dark:text-white font-medium">JWT + Google OAuth.</span> Incluye panel admin con dashboard analítico, gestión de productos y ordenes. Desarrollado con <span class="text-zinc-900 dark:text-white font-medium">React + TypeScript</span> y <span class="text-zinc-900 dark:text-white font-medium">ASP.NET Core + PostgreSQL</span>, aplicando <span class="text-zinc-900 dark:text-white font-medium">Clean Architecture</span>, validaciones y despliegue en <span class="text-zinc-900 dark:text-white font-medium">Docker (Railway + Vercel).</span>',
     tags: [
       { name: "React" },
       { name: "TypeScript" },
@@ -49,7 +49,7 @@ export const projects: Project[] = [
     id: 2,
     title: "La Porteña",
     description:
-      "E-commerce de panadería desarrollado con React.js como proyecto del curso de Talento Tech. Implementa conceptos como hooks, context API, providers y gestión de estado global.",
+      'E-commerce de panadería con catálogo de productos, carrito y checkout. Desarrollado con <span class="text-zinc-900 dark:text-white font-medium">React.js</span>, aplicando hooks, <span class="text-zinc-900 dark:text-white font-medium">Context API</span> y gestión de estado global.',
     tags: [
       { name: "React" },
       { name: "JavaScript" }, // o TypeScript si lo usaste
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     id: 3,
     title: "Camaño Hidrogas",
     description:
-      "Landing page para empresa de plomería e hidrogas. Desarrollada con Astro y Tailwind CSS, orientada al SEO local con schema.org, sitemap, meta tags y Open Graph. Diseño mobile-first con carrusel de reseñas.",
+      'Landing page para una empresa de plomería e hidrogas, orientada al <span class="text-zinc-900 dark:text-white font-medium">SEO local</span> con schema.org, sitemap y Open Graph. Diseño <span class="text-zinc-900 dark:text-white font-medium">mobile-first</span> con carrusel de reseñas, desarrollada con <span class="text-zinc-900 dark:text-white font-medium">Astro + Tailwind CSS</span>.',
     tags: [{ name: "Astro" }, { name: "Tailwind CSS" }, { name: "SEO" }],
     gradient: "from-cyan-500 to-teal-700",
     label: "Landing Page",

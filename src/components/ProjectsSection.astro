@@ -5,7 +5,7 @@ import { projects } from "../data/projects";
 
 <section id="projects" class="py-24">
   <div class="container mx-auto px-6">
-    <div class="mx-auto max-w-5xl">
+    <div class="mx-auto max-w-6xl">
 
       <!-- Header -->
       <div class="animate-on-scroll mb-14 opacity-0">
@@ -14,8 +14,8 @@ import { projects } from "../data/projects";
         </h2>
       </div>
 
-      <!-- Grid -->
-      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+      <!-- Proyectos -->
+      <div>
         {projects.map((project, i) => (
           <ProjectCard project={project} index={i} />
         ))}

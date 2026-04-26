@@ -108,21 +108,29 @@ import heroImage from "../assets/images/angel.png";
     display: inline-flex;
     align-items: center;
     overflow: hidden;
-    padding: 0.5rem 1.1rem;
-    background-color: transparent;
-    color: #fde047;
+    padding: 0.6rem 1.4rem;
+    background-color: #ffffff;
+    color: #09090b;
     font-size: 0.72rem;
     font-weight: 800;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    border-radius: 6px;
-    border: 1.5px solid rgba(253, 224, 71, 0.5);
-    transition: border-color 0.2s ease, color 0.2s ease;
+    border-radius: 8px;
+    border: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: pointer;
+    box-shadow: 0 0 0 rgba(255,255,255,0);
   }
 
   .cv-btn:hover {
-    border-color: #fde047;
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 24px rgba(255, 255, 255, 0.25),
+      0 0 60px rgba(255, 255, 255, 0.08);
+  }
+
+  .cv-btn:active {
+    transform: translateY(0);
   }
 
   .cv-btn-content {
@@ -147,14 +155,13 @@ import heroImage from "../assets/images/angel.png";
     top: 0;
     height: 100%;
     width: 0%;
-    background-color: #fde047;
+    background-color: rgba(0, 0, 0, 0.1);
     z-index: 0;
     transition: none;
   }
 
   .cv-btn.loading {
-    color: #080c14;
-    border-color: #fde047;
+    color: #09090b;
   }
 
   .cv-btn.loading .cv-progress-bar {

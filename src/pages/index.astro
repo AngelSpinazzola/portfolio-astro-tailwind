@@ -15,7 +15,7 @@ import EducationSection from "../components/EducationSection.astro";
   <div class="bg-fixed-layer" aria-hidden="true"></div>
 
   <!-- Navbar -->
-  <header id="navbar" class="fixed top-0 z-50 w-full  border-transparent bg-transparent backdrop-blur-none transition-all duration-300">
+  <header id="navbar" class="fixed top-0 z-50 w-full border-transparent bg-transparent backdrop-blur-none transition-all duration-300 hidden sm:block">
     <div class="mx-auto flex h-12 max-w-6xl items-center justify-end px-6 sm:h-16 sm:grid sm:grid-cols-3">
 
       <!-- Izquierda (vacío o logo futuro) -->
@@ -29,37 +29,38 @@ import EducationSection from "../components/EducationSection.astro";
         <a href="#educacion" class="nav-link">Educación</a>
       </nav>
 
-      <!-- Derecha: acciones -->
-      <div class="flex items-center justify-end gap-2">
-        <!-- Theme toggle -->
-        <button id="theme-toggle" class="nav-icon-btn" aria-label="Cambiar tema">
-          <svg class="hidden h-3.5 w-3.5 dark:block" fill="currentColor" viewBox="0 0 20 20">
-            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-          </svg>
-          <svg class="block h-3.5 w-3.5 dark:hidden" fill="currentColor" viewBox="0 0 20 20">
-            <path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd" />
-          </svg>
-        </button>
-
-        <!-- Burger (mobile) -->
-        <button id="mobile-menu-btn" class="burger-btn sm:hidden" aria-label="Menú" aria-expanded="false">
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-          <span class="burger-line"></span>
-        </button>
-      </div>
+      <!-- Derecha: vacío en mobile -->
+      <div class="flex items-center justify-end gap-2"></div>
     </div>
 
-    <!-- Mobile nav -->
-    <div id="mobile-nav" class="mobile-nav-panel sm:hidden">
-      <div class="flex flex-col px-6 py-2">
-        <a href="#inicio"    class="mobile-nav-link">Inicio</a>
-        <a href="#proyectos" class="mobile-nav-link">Proyectos</a>
-        <a href="#stack"     class="mobile-nav-link">Stack</a>
-        <a href="#educacion" class="mobile-nav-link">Educación</a>
-      </div>
-    </div>
   </header>
+
+  <!-- Burger flotante (mobile) -->
+  <button id="mobile-menu-btn" class="burger-btn sm:hidden" aria-label="Menú" aria-expanded="false">
+    <span class="burger-line"></span>
+    <span class="burger-line"></span>
+    <span class="burger-line"></span>
+  </button>
+
+  <!-- Mobile nav overlay (fuera del header para cubrir toda la pantalla) -->
+  <div id="mobile-nav" class="mobile-nav-overlay">
+    <!-- Close -->
+    <button id="mobile-close-btn" class="mobile-close" aria-label="Cerrar menú">✕</button>
+
+    <!-- Links -->
+    <nav class="flex flex-col justify-center flex-1 px-10 gap-2">
+      <a href="#inicio"    class="mobile-nav-link" data-index="01">Inicio</a>
+      <a href="#proyectos" class="mobile-nav-link" data-index="02">Proyectos</a>
+      <a href="#stack"     class="mobile-nav-link" data-index="03">Stack</a>
+      <a href="#educacion" class="mobile-nav-link" data-index="04">Educación</a>
+    </nav>
+
+    <!-- Redes sociales abajo -->
+    <div class="flex gap-6 px-10 pb-12">
+      <a href="https://github.com/AngelSpinazzola" target="_blank" class="mobile-social">GitHub</a>
+      <a href="https://www.linkedin.com/in/angel-spinazzola/" target="_blank" class="mobile-social">LinkedIn</a>
+    </div>
+  </div>
 
   <!-- Sections -->
   <main>
@@ -171,112 +172,107 @@ import EducationSection from "../components/EducationSection.astro";
     color: #f4f4f5;
   }
 
-  /* ── Burger: solo visible en mobile ── */
+  /* ── Burger flotante ── */
   .burger-btn {
     display: none;
+    position: fixed;
+    top: 0.75rem;
+    right: 1rem;
+    z-index: 300;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 4px;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 0.5rem;
+    gap: 5px;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     cursor: pointer;
-    transition: background-color 0.15s;
+    transition: opacity 0.2s ease, background 0.2s ease;
   }
 
   @media (max-width: 639px) {
     .burger-btn { display: flex; }
   }
 
-  .burger-btn:hover { background-color: #f4f4f5; }
-  :global(.dark) .burger-btn:hover { background-color: #27272a; }
-
   .burger-line {
     display: block;
-    width: 16px;
-    height: 1.5px;
-    background-color: #a1a1aa;
+    width: 20px;
+    height: 2px;
+    background-color: #ffffff;
     border-radius: 2px;
-    transform-origin: center;
-    transition: transform 0.25s ease, opacity 0.2s ease;
+    transition: opacity 0.2s ease;
   }
 
-  .burger-btn.open .burger-line:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
-  .burger-btn.open .burger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
-  .burger-btn.open .burger-line:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+  .burger-btn.open {
+    opacity: 0;
+    pointer-events: none;
+  }
 
-  /* ── Mobile nav panel: solo en mobile ── */
-  .mobile-nav-panel {
+  /* ── Mobile nav overlay ── */
+  .mobile-nav-overlay {
     display: none;
-    grid-template-rows: 0fr;
-    transition: grid-template-rows 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    background: #05080f;
+    flex-direction: column;
+    transform: translateX(-100%);
+    transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @media (max-width: 639px) {
-    .mobile-nav-panel { display: grid; }
+    .mobile-nav-overlay { display: flex; }
   }
 
-  .mobile-nav-panel.open {
-    grid-template-rows: 1fr;
+  .mobile-nav-overlay.open {
+    transform: translateX(0);
   }
 
-  .mobile-nav-panel > div {
-    overflow: hidden;
-    border-top: 1px solid transparent;
-    padding: 0.5rem 1.5rem 0.75rem;
-    transition: border-color 0.28s ease;
-  }
-
-  .mobile-nav-panel.open > div {
-    border-top-color: #e4e4e7;
-  }
-
-  :global(.dark) .mobile-nav-panel.open > div {
-    border-top-color: #27272a;
-  }
-
-  .mobile-nav-link {
+  .mobile-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-size: 1.25rem;
+    color: #ffffff;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem 0.5rem;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    color: #52525b;
+    justify-content: center;
     border-radius: 0.5rem;
-    transition: color 0.15s, background-color 0.15s;
+    transition: color 0.15s;
+    cursor: pointer;
   }
 
-  .mobile-nav-link::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background-color: #10b981;
-    opacity: 0;
-    transition: opacity 0.15s;
-    flex-shrink: 0;
+  .mobile-close:hover { color: #fff; }
+
+  .mobile-nav-link {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 0.08em;
+    color: rgba(255, 253, 253, 0.863);
+    transition: color 0.2s ease;
+    line-height: 1.1;
   }
 
-  .mobile-nav-link:hover::before,
-  .mobile-nav-link.active::before {
-    opacity: 1;
+  .mobile-nav-link:hover,
+  .mobile-nav-link.active {
+    color: #ffffff;
   }
 
-  .mobile-nav-link:hover {
-    color: #18181b;
-    background-color: #f4f4f5;
+  .mobile-social {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e6d439;
+    transition: color 0.2s;
   }
 
-  :global(.dark) .mobile-nav-link {
-    color: #71717a;
-  }
-
-  :global(.dark) .mobile-nav-link:hover {
-    color: #f4f4f5;
-    background-color: #27272a;
-  }
+  .mobile-social:hover { color: #fde047; }
 
   /* Offset del navbar para el scroll */
   #inicio, #proyectos, #stack, #educacion {
@@ -286,12 +282,8 @@ import EducationSection from "../components/EducationSection.astro";
 </style>
 
 <script is:inline>
-  // ── Tema ──
-  (function () {
-    const saved = localStorage.getItem("theme");
-    const theme = saved || "dark";
-    if (theme === "dark") document.documentElement.classList.add("dark");
-  })();
+  // ── Tema (forzado dark temporalmente) ──
+  document.documentElement.classList.add("dark");
 
   // ── Animaciones on scroll ──
   const observed = new Set();
@@ -345,28 +337,29 @@ import EducationSection from "../components/EducationSection.astro";
     linkObserver.observe(s);
   });
 
-  // ── Theme toggle ──
-  document.getElementById("theme-toggle").addEventListener("click", function () {
-    document.documentElement.classList.toggle("dark");
-    localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light");
-  });
-
   // ── Mobile menu ──
   var burgerBtn  = document.getElementById("mobile-menu-btn");
   var mobileNav  = document.getElementById("mobile-nav");
+
+  function closeMobileNav() {
+    mobileNav.classList.remove("open");
+    burgerBtn.classList.remove("open");
+    burgerBtn.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  }
 
   burgerBtn.addEventListener("click", function () {
     var isOpen = mobileNav.classList.toggle("open");
     burgerBtn.classList.toggle("open", isOpen);
     burgerBtn.setAttribute("aria-expanded", isOpen);
+    document.body.style.overflow = isOpen ? "hidden" : "";
   });
 
+  var closeBtn = document.getElementById("mobile-close-btn");
+  if (closeBtn) closeBtn.addEventListener("click", closeMobileNav);
+
   document.querySelectorAll(".mobile-nav-link").forEach(function (l) {
-    l.addEventListener("click", function () {
-      mobileNav.classList.remove("open");
-      burgerBtn.classList.remove("open");
-      burgerBtn.setAttribute("aria-expanded", "false");
-    });
+    l.addEventListener("click", closeMobileNav);
   });
 
   // ── Keyboard shortcuts ──

@@ -9,6 +9,7 @@ import javascriptIcon from "../assets/tech-icons/javascript-original.svg";
 import css3Icon from "../assets/tech-icons/css3-original.svg";
 import astroIcon from "../assets/tech-icons/astro-original.svg";
 import mysqlIcon from "../assets/tech-icons/mysql-original.svg";
+import figmaIcon from "../assets/tech-icons/figma.svg";
 import postgresqlIcon from "../assets/tech-icons/postgresql-original.svg";
 import sqlserverIcon from "../assets/tech-icons/microsoftsqlserver-plain.svg";
 import dockerIcon from "../assets/tech-icons/docker-original.svg";
@@ -39,6 +40,7 @@ export const technologies: Technology[] = [
 
   { name: "Docker", icon: dockerIcon, category: "DevOps & Tools" },
   { name: "GitHub", icon: gitIcon,    category: "DevOps & Tools" },
+  { name: "Figma", icon: figmaIcon, category: "DevOps & Tools" }
 ];
 
 export const techCategories: TechCategory[] = ["Backend", "Frontend", "DevOps & Tools"];

@@ -1,11 +1,9 @@
 ---
-import "@fontsource/inter/400.css";
-import "@fontsource/inter/500.css";
-import "@fontsource/inter/600.css";
-import "@fontsource/inter/700.css";
-import "@fontsource/space-grotesk/500.css";
-import "@fontsource/space-grotesk/600.css";
-import "@fontsource/space-grotesk/700.css";
+import "@fontsource/bebas-neue/400.css";
+import "@fontsource/manrope/400.css";
+import "@fontsource/manrope/500.css";
+import "@fontsource/manrope/600.css";
+import "@fontsource/manrope/700.css";
 
 const { title, description } = Astro.props;
 const siteUrl = "https://angelspinazzola.dev";
@@ -49,7 +47,7 @@ const jsonLd = JSON.stringify({
     <script is:inline type="application/ld+json" set:html={jsonLd} />
   </head>
 
-  <body class="h-full bg-zinc-50 font-sans text-zinc-900 antialiased dark:bg-zinc-950 dark:text-zinc-100">
+  <body class="h-full bg-zinc-50 text-zinc-900 antialiased dark:text-zinc-100" style="background-color: #05080f;">
     <slot />
   </body>
 </html>
@@ -59,12 +57,18 @@ const jsonLd = JSON.stringify({
     scroll-behavior: smooth;
   }
 
+  body {
+    font-family: 'Manrope', system-ui, sans-serif;
+  }
+
   .opacity-0 {
     opacity: 0;
   }
 
   h1, h2, h3, h4 {
-    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-family: 'Bebas Neue', system-ui, sans-serif !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.15em;
   }
 
 </style>

@@ -8,45 +8,45 @@ import { technologies, techCategories } from "../data/technologies";
     <div class="mx-auto max-w-6xl">
 
       <div class="animate-on-scroll mb-14 opacity-0">
-        <h2 class="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+        <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100"
+        style="letter-spacing: 0.02em;">
           Stack
         </h2>
       </div>
 
-      <div class="flex flex-col gap-10">
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         {techCategories.map((category) => {
           const items = technologies.filter((t) => t.category === category);
           return (
-            <div class="animate-on-scroll opacity-0">
-              <!-- Divider con label -->
-              <div class="mb-5 flex items-center gap-3">
-                <span class="shrink-0 text-xs font-semibold uppercase tracking-widest text-emerald-500">
-                  {category}
-                </span>
-                <div class="h-px flex-1 bg-zinc-200 dark:bg-zinc-800" />
-              </div>
+            <div class="flex flex-col gap-2">
+              <!-- Label -->
+              <span class="text-sm font-semibold uppercase tracking-widest text-yellow-300 text-center">
+                {category}
+              </span>
 
-              <!-- Grid de cards -->
-              <div class="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-7">
-                {items.map((tech, i) => (
-                  <div
-                    class="tech-card group flex flex-col items-center gap-2.5 rounded-xl border border-zinc-200 bg-zinc-50 p-4 transition-all duration-200 hover:border-emerald-500/40 dark:border-zinc-800 dark:bg-zinc-900 dark:hover:border-emerald-500/30"
-                    style={`animation-delay: ${i * 35}ms`}
-                  >
+              <!-- Container -->
+              <div class="animate-on-scroll tech-container flex-1 opacity-0">
+                <div class="spotlight"></div>
+
+                <!-- Iconos -->
+                <div class="grid grid-cols-4 gap-x-4 gap-y-6">
+                {items.map((tech) => (
+                  <div class="group flex flex-col items-center gap-2.5">
                     <Image
                       src={tech.icon}
                       alt={tech.name}
-                      width={40}
-                      height={40}
-                      class="h-8 w-8 transition-transform duration-200 group-hover:scale-110"
+                      width={48}
+                      height={48}
+                      class="h-9 w-9 lg:h-12 lg:w-12 opacity-75 transition-all duration-200 group-hover:opacity-100 group-hover:scale-110"
                     />
-                    <span class="text-center text-xs font-medium text-zinc-500 dark:text-zinc-500">
+                    <span class="text-[11px] font-medium text-gray-200 transition-colors duration-200 group-hover:text-zinc-300">
                       {tech.name}
                     </span>
                   </div>
                 ))}
               </div>
             </div>
+          </div>
           );
         })}
       </div>
@@ -54,3 +54,53 @@ import { technologies, techCategories } from "../data/technologies";
     </div>
   </div>
 </section>
+
+<style>
+  .tech-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 1.75rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .tech-container:hover {
+    border-color: rgba(253, 224, 71, 0.15);
+  }
+
+  .spotlight {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(253, 224, 71, 0.18) 0%, transparent 70%);
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 0;
+  }
+</style>
+
+<script is:inline>
+  document.querySelectorAll(".tech-container").forEach(function (container) {
+    var spotlight = container.querySelector(".spotlight");
+
+    container.addEventListener("mouseenter", function () {
+      spotlight.style.opacity = "1";
+    });
+
+    container.addEventListener("mousemove", function (e) {
+      var rect = container.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      spotlight.style.left = x + "px";
+      spotlight.style.top = y + "px";
+    });
+
+    container.addEventListener("mouseleave", function () {
+      spotlight.style.opacity = "0";
+    });
+  });
+</script>

@@ -11,7 +11,7 @@ import heroImage from "../assets/images/angel.png";
         <!-- Foto -->
         <div class="order-1 shrink-0 lg:order-2">
           <div class="relative">
-            <div class="absolute -inset-2 rounded-full bg-emerald-500/15 blur-lg"></div>
+            <div class="absolute -inset-2 rounded-full ring-yellow-300/15 blur-lg"></div>
             <Image
               src={heroImage}
               alt="Angel Spinazzola"
@@ -20,7 +20,7 @@ import heroImage from "../assets/images/angel.png";
               format="webp"
               loading="eager"
               fetchpriority="high"
-              class="relative h-44 w-44 rounded-full object-cover ring-2 ring-emerald-500/25 lg:h-56 lg:w-56"
+              class="relative h-44 w-44 rounded-full object-cover ring-2 ring-yellow-300/50 lg:h-56 lg:w-56"
             />
           </div>
         </div>
@@ -28,22 +28,23 @@ import heroImage from "../assets/images/angel.png";
         <!-- Contenido -->
         <div class="order-2 space-y-6 text-center lg:order-1 lg:text-left">
           <div class="space-y-2">
-            <h1 class="text-4xl font-bold tracking-tight text-zinc-900 md:text-5xl dark:text-white">
+            <h1 class="text-4xl font-bold text-zinc-900 md:text-6xl dark:text-white"
+            style="letter-spacing: 0.02em">
               Angel Spinazzola
             </h1>
-            <h2 class="text-2xl font-semibold text-emerald-600 md:text-3xl dark:text-emerald-400">
-              Desarrollador Full-Stack
-            </h2>
-            <p class="text-base text-zinc-500 dark:text-zinc-400">
-              Técnico Universitario en Programación · UTN
-            </p>
+            <div class="relative h-9 md:h-12">
+              <h2 id="rotating-title" class="absolute left-0 right-0 whitespace-nowrap text-2xl font-semibold text-emerald-600 md:text-4xl dark:text-yellow-300"
+              style="font-family: 'Manrope', sans-serif; letter-spacing: 0.01em; transition: opacity 0.35s ease, filter 0.35s ease;">
+                Desarrollador Full-Stack
+              </h2>
+            </div>
           </div>
 
           <!-- Bio -->
-          <p class="max-w-md text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+          <p class="max-w-md text-sm leading-relaxed text-zinc-500 dark:text-zinc-300 lg:mt-4">
             Trabajo con una mentalidad orientada a procesos: entender el problema, diseñar la solución
             y construir software claro, escalable y mantenible. Creo firmemente en el
-            <span class="font-medium text-emerald-600 dark:text-emerald-400">aprendizaje continuo</span>
+            <span class="font-medium text-emerald-600 dark:text-yellow-300">aprendizaje continuo</span>
             como la clave para evolucionar como desarrollador.
           </p>
 
@@ -78,12 +79,16 @@ import heroImage from "../assets/images/angel.png";
             <a
               href="/cv-angel-spinazzola.pdf"
               download="CV-Angel-Spinazzola.pdf"
-              class="social-btn-primary"
+              class="cv-btn"
+              id="cv-download-btn"
             >
-              <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              Descargar CV
+              <span class="cv-btn-content">
+                <span class="cv-btn-text">Descargar CV</span>
+                <svg class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" />
+                </svg>
+              </span>
+              <span class="cv-progress-bar"></span>
             </a>
           </div>
         </div>
@@ -98,7 +103,101 @@ import heroImage from "../assets/images/angel.png";
     @apply inline-flex items-center gap-2 rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-600 transition-all duration-200 hover:border-zinc-300 hover:text-zinc-900 dark:border-zinc-800 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-100;
   }
 
-  .social-btn-primary {
-    @apply inline-flex items-center gap-2 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-700 transition-all duration-200 hover:border-emerald-500/60 hover:bg-emerald-500/20 dark:border-emerald-500/30 dark:bg-emerald-500/10 dark:text-emerald-400 dark:hover:border-emerald-500/50 dark:hover:bg-emerald-500/20;
+  .cv-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 0.5rem 1.1rem;
+    background-color: transparent;
+    color: #fde047;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border-radius: 6px;
+    border: 1.5px solid rgba(253, 224, 71, 0.5);
+    transition: border-color 0.2s ease, color 0.2s ease;
+    cursor: pointer;
   }
+
+  .cv-btn:hover {
+    border-color: #fde047;
+  }
+
+  .cv-btn-content {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cv-btn-content svg {
+    transition: transform 0.25s ease;
+  }
+
+  .cv-btn:hover .cv-btn-content svg {
+    transform: translateY(2px);
+  }
+
+  .cv-progress-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 0%;
+    background-color: #fde047;
+    z-index: 0;
+    transition: none;
+  }
+
+  .cv-btn.loading {
+    color: #080c14;
+    border-color: #fde047;
+  }
+
+  .cv-btn.loading .cv-progress-bar {
+    width: 100%;
+    transition: width 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
 </style>
+
+<script is:inline>
+  // ── CV download progress ──
+  var cvBtn = document.getElementById("cv-download-btn");
+  var cvBtnText = cvBtn.querySelector(".cv-btn-text");
+  cvBtn.addEventListener("click", function () {
+    if (cvBtn.classList.contains("loading")) return;
+    cvBtnText.textContent = "Descargando CV";
+    cvBtn.classList.add("loading");
+    setTimeout(function () {
+      cvBtnText.textContent = "Descargado ✓";
+      cvBtn.classList.add("done");
+      setTimeout(function () {
+        cvBtnText.textContent = "Descargar CV";
+        cvBtn.classList.remove("loading", "done");
+        cvBtn.querySelector(".cv-progress-bar").style.transition = "none";
+        setTimeout(function () {
+          cvBtn.querySelector(".cv-progress-bar").style.transition = "";
+        }, 50);
+      }, 1200);
+    }, 1900);
+  });
+
+  var titles = ["Desarrollador Full-Stack", "Técnico Universitario en Programación"];
+  var current = 0;
+  var el = document.getElementById("rotating-title");
+
+  setInterval(function () {
+    el.style.opacity = "0";
+    el.style.filter = "blur(8px)";
+    setTimeout(function () {
+      current = (current + 1) % titles.length;
+      el.textContent = titles[current];
+      el.style.opacity = "1";
+      el.style.filter = "blur(0px)";
+    }, 380);
+  }, 3000);
+</script>

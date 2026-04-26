@@ -11,17 +11,12 @@ import EducationSection from "../components/EducationSection.astro";
   description="Portfolio profesional de Angel Spinazzola, desarrollador full stack especializado en ASP.NET, React, SQL Server y desarrollo de aplicaciones modernas."
 >
 
-  <!-- Background blobs + noise -->
-  <div class="bg-blobs" aria-hidden="true">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="noise-layer"></div>
-  </div>
+  <!-- Background -->
+  <div class="bg-fixed-layer" aria-hidden="true"></div>
 
   <!-- Navbar -->
-  <header id="navbar" class="fixed top-0 z-50 w-full border-b border-zinc-200/80 bg-zinc-50/90 backdrop-blur-md dark:border-zinc-800/80 dark:bg-zinc-950/90">
-    <div class="mx-auto flex h-12 max-w-6xl items-center justify-end px-6 sm:grid sm:grid-cols-3">
+  <header id="navbar" class="fixed top-0 z-50 w-full  border-transparent bg-transparent backdrop-blur-none transition-all duration-300">
+    <div class="mx-auto flex h-12 max-w-6xl items-center justify-end px-6 sm:h-16 sm:grid sm:grid-cols-3">
 
       <!-- Izquierda (vacío o logo futuro) -->
       <div class="hidden sm:block"></div>
@@ -86,90 +81,73 @@ import EducationSection from "../components/EducationSection.astro";
 </Layout>
 
 <style>
-  /* ── Background blobs ── */
-  .bg-blobs {
+  /* ── Background ── */
+  .bg-fixed-layer {
     position: fixed;
     inset: 0;
     z-index: -1;
-    overflow: hidden;
     pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 55% at 15% 20%, rgba(14, 40, 100, 0.55) 0%, transparent 65%),
+      radial-gradient(ellipse 50% 40% at 85% 75%, rgba(8, 25, 70, 0.4) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 30% at 70% 10%, rgba(20, 60, 130, 0.2) 0%, transparent 55%);
   }
 
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(100px);
+  /* ── Navbar scroll ── */
+  #navbar.navbar-visible {
+    background-color: rgb(250 250 250 / 0.9);
+    border-color: rgb(228 228 231 / 0.8);
+    backdrop-filter: blur(12px);
   }
 
-  .blob-1 {
-    width: 600px;
-    height: 600px;
-    background: #10b981;
-    top: -180px;
-    right: -80px;
-    opacity: 0.07;
+  :global(.dark) #navbar.navbar-visible {
+    background-color: rgb(9 9 11 / 0.9);
+    border-color: rgb(39 39 42 / 0.8);
   }
-
-  .blob-2 {
-    width: 500px;
-    height: 500px;
-    background: #6366f1;
-    bottom: -120px;
-    left: -80px;
-    opacity: 0.07;
-  }
-
-  .blob-3 {
-    width: 400px;
-    height: 400px;
-    background: #10b981;
-    bottom: 20%;
-    right: 15%;
-    opacity: 0.04;
-  }
-
-  :global(.dark) .blob-1 { opacity: 0.14; }
-  :global(.dark) .blob-2 { opacity: 0.10; }
-  :global(.dark) .blob-3 { opacity: 0.07; }
-
-  .noise-layer {
-    position: absolute;
-    inset: 0;
-    opacity: 0.032;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
-    background-repeat: repeat;
-    background-size: 200px 200px;
-  }
-
-  :global(.dark) .noise-layer { opacity: 0.05; }
 
   /* ── Navbar ── */
   .nav-link {
+    position: relative;
     padding: 0.25rem 0.75rem;
-    font-size: 0.8125rem;
+    font-size: 0.9375rem;
     color: #71717a;
-    border-radius: 0.5rem;
-    transition: color 0.15s, background-color 0.15s;
+    transition: color 0.2s;
+    overflow: hidden;
   }
+
+  .nav-link::before,
+  .nav-link::after {
+    content: '[';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateX(-6px);
+    opacity: 0;
+    color: #fde047;
+    font-size: 0.85rem;
+    transition: transform 0.2s ease 0.12s, opacity 0.2s ease 0.12s;
+  }
+
+  .nav-link::after {
+    content: ']';
+    left: auto;
+    right: 0;
+    transform: translateY(-50%) translateX(6px);
+  }
+
+  .nav-link::before { left: 0; }
 
   .nav-link:hover {
-    color: #18181b;
-    background-color: #f4f4f5;
-  }
-
-  :global(.dark) .nav-link:hover {
-    color: #f4f4f5;
-    background-color: #27272a;
+    color: #a1a1aa;
   }
 
   .nav-link.active {
-    color: #18181b;
-    background-color: #f4f4f5;
+    color: #fde047;
   }
 
-  :global(.dark) .nav-link.active {
-    color: #f4f4f5;
-    background-color: #27272a;
+  .nav-link.active::before,
+  .nav-link.active::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
   }
 
   .nav-icon-btn {
@@ -339,8 +317,21 @@ import EducationSection from "../components/EducationSection.astro";
 
   // ── Nav active link ──
   var navLinks = document.querySelectorAll(".nav-link");
+  var scrollingByClick = false;
+  var scrollTimer;
+
+  navLinks.forEach(function (link) {
+    link.addEventListener("click", function () {
+      navLinks.forEach(function (l) { l.classList.remove("active"); });
+      link.classList.add("active");
+      scrollingByClick = true;
+      clearTimeout(scrollTimer);
+      scrollTimer = setTimeout(function () { scrollingByClick = false; }, 1200);
+    });
+  });
 
   var linkObserver = new IntersectionObserver(function (entries) {
+    if (scrollingByClick) return;
     entries.forEach(function (entry) {
       if (!entry.isIntersecting) return;
       var id = entry.target.id;
@@ -348,7 +339,7 @@ import EducationSection from "../components/EducationSection.astro";
         l.classList.toggle("active", l.getAttribute("href") === "#" + id);
       });
     });
-  }, { threshold: 0.4 });
+  }, { threshold: 0, rootMargin: "-40% 0px -55% 0px" });
 
   document.querySelectorAll("#inicio, #proyectos, #stack, #educacion").forEach(function (s) {
     linkObserver.observe(s);
@@ -387,4 +378,18 @@ import EducationSection from "../components/EducationSection.astro";
       if (el) { e.preventDefault(); el.scrollIntoView({ behavior: "smooth" }); }
     }
   });
+
+  // ── Navbar on scroll ──
+  var navbar = document.getElementById("navbar");
+
+  function updateNavbar() {
+    if (window.scrollY > 20) {
+      navbar.classList.add("navbar-visible");
+    } else {
+      navbar.classList.remove("navbar-visible");
+    }
+  }
+
+  window.addEventListener("scroll", updateNavbar, { passive: true });
+  updateNavbar();
 </script>

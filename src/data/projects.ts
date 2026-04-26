@@ -22,7 +22,7 @@ export interface Project {
   icon?: string;
 }
 
-export const projects: Project[] = [
+export const projects: Project[3] = [
   {
     id: 1,
     title: "NovaTech",

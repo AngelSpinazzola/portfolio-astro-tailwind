@@ -18,14 +18,17 @@ const { project, index } = Astro.props;
   <!-- Contenido (izquierda en desktop, abajo en mobile) -->
   <div class="content-side">
     <div class="space-y-3">
-      <span class="text-[10px] font-semibold uppercase tracking-widest text-emerald-600 dark:text-emerald-400">
-        {project.label}
-      </span>
-      <h3 class="text-xl font-semibold leading-snug text-zinc-900 dark:text-zinc-100">
-        {project.title}
-      </h3>
+      <div class="flex items-center justify-between gap-3">
+        <h3 class="text-xl md:text-2xl font-semibold leading-snug text-zinc-900 dark:text-zinc-100"
+        style="letter-spacing: 0.03em;">
+          {project.title}
+        </h3>
+        <span class="shrink-0 text-xs font-semibold uppercase tracking-widest text-emerald-600 dark:text-zinc-100">
+          {project.label}
+        </span>
+      </div>
       <p
-        class="text-sm leading-relaxed text-zinc-900 dark:text-zinc-400"
+        class="text-sm leading-relaxed text-zinc-900 dark:text-zinc-300"
         set:html={project.description}
       />
     </div>
@@ -50,28 +53,31 @@ const { project, index } = Astro.props;
     </div>
 
     <!-- Acciones -->
-    <div class="flex gap-2 pt-2">
-      {project.demoUrl && (
-        <a
-          href={project.demoUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-3 py-1.5 text-xs font-medium text-emerald-700 transition-all duration-200 hover:border-emerald-500/60 hover:bg-emerald-500/20 dark:border-emerald-500/30 dark:bg-emerald-500/5 dark:text-emerald-400 dark:hover:border-emerald-500/50 dark:hover:bg-emerald-500/10"
-        >
-          Ver Demo ↗
-        </a>
-      )}
+    <div class="flex justify-end gap-6 pt-2">
       {project.githubUrl && (
         <a
           href={project.githubUrl}
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 rounded-lg border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-500 transition-all duration-200 hover:border-zinc-300 hover:text-zinc-700 dark:border-zinc-800 dark:text-zinc-500 dark:hover:border-zinc-700 dark:hover:text-zinc-300"
+          class="action-btn border-b border-yellow-300 text-yellow-300 hover:text-yellow-200"
         >
-          <svg class="h-3 w-3" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          Ver en GitHub
+          <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
           </svg>
-          Código
+        </a>
+      )}
+      {project.demoUrl && (
+        <a
+          href={project.demoUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="action-btn border-b border-yellow-300 text-yellow-300 hover:text-yellow-200"
+        >
+          Ver demo
+          <svg class="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 17L17 7M17 7H7M17 7v10" />
+          </svg>
         </a>
       )}
     </div>
@@ -133,6 +139,20 @@ const { project, index } = Astro.props;
   :global(.dark) .image-side {
     background-color: theme('colors.zinc.800');
   }
+
+  /* ── Botones ── */
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding-bottom: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    transition: opacity 0.2s ease;
+  }
+
 
   /* Desktop: lado a lado */
   @media (min-width: 768px) {

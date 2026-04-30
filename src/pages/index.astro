@@ -1,9 +1,12 @@
 ---
+import { getImage } from "astro:assets";
 import Layout from "../layouts/Layout.astro";
 import HeroSection from "../components/HeroSection.astro";
 import ProjectsSection from "../components/ProjectsSection.astro";
 import TechnologiesSection from "../components/TechnologiesSection.astro";
 import EducationSection from "../components/EducationSection.astro";
+import bgRaw from "../assets/images/bg.png";
+const bg = await getImage({ src: bgRaw });
 ---
 
 <Layout
@@ -12,7 +15,7 @@ import EducationSection from "../components/EducationSection.astro";
 >
 
   <!-- Background -->
-  <div class="bg-fixed-layer" aria-hidden="true"></div>
+  <div class="bg-fixed-layer" aria-hidden="true" style={{ backgroundImage: `url(${bg.src})` }}></div>
 
   <!-- Navbar -->
   <header id="navbar" class="fixed top-0 z-50 w-full border-transparent bg-transparent backdrop-blur-none transition-all duration-300 hidden sm:block">
@@ -88,10 +91,23 @@ import EducationSection from "../components/EducationSection.astro";
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background:
-      radial-gradient(ellipse 70% 55% at 15% 20%, rgba(14, 40, 100, 0.55) 0%, transparent 65%),
-      radial-gradient(ellipse 50% 40% at 85% 75%, rgba(8, 25, 70, 0.4) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 30% at 70% 10%, rgba(20, 60, 130, 0.2) 0%, transparent 55%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .bg-fixed-layer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      transparent 15%,
+      rgba(5, 8, 15, 0.5) 35%,
+      rgba(5, 8, 15, 0.88) 52%,
+      #05080f 65%
+    );
   }
 
   /* ── Navbar scroll ── */

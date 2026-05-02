@@ -1,5 +1,8 @@
 ---
 import "@fontsource/bebas-neue/400.css";
+import "@fontsource/space-grotesk/500.css";
+import "@fontsource/space-grotesk/600.css";
+import "@fontsource/space-grotesk/700.css";
 import "@fontsource/manrope/400.css";
 import "@fontsource/manrope/500.css";
 import "@fontsource/manrope/600.css";
@@ -65,10 +68,16 @@ const jsonLd = JSON.stringify({
     opacity: 0;
   }
 
-  h1, h2, h3, h4 {
+  h1 {
     font-family: 'Bebas Neue', system-ui, sans-serif !important;
     font-weight: 400 !important;
     letter-spacing: 0.15em;
+  }
+
+  h2, h3, h4 {
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    font-weight: 600 !important;
+    letter-spacing: 0.02em;
   }
 
 </style>

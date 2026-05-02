@@ -85,20 +85,48 @@ const { project, index } = Astro.props;
 
   <!-- Imagen (derecha en desktop, arriba en mobile) -->
   <div class="image-side">
-    {project.image ? (
-      <Image
-        src={project.image}
-        alt={project.title}
-        width={800}
-        height={450}
-        format="webp"
-        quality={88}
-        loading={index < 2 ? "eager" : "lazy"}
-        class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-        sizes="(max-width: 768px) 100vw, 55vw"
-      />
+    {(project.demoUrl || project.githubUrl) ? (
+      <a
+        href={project.demoUrl || project.githubUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="block h-full w-full"
+        aria-label={`Ver ${project.demoUrl ? "demo" : "código"} de ${project.title}`}
+      >
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            width={800}
+            height={450}
+            format="webp"
+            quality={88}
+            loading={index < 2 ? "eager" : "lazy"}
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            sizes="(max-width: 768px) 100vw, 55vw"
+          />
+        ) : (
+          <div class={`h-full w-full bg-gradient-to-br ${project.gradient}`} />
+        )}
+      </a>
     ) : (
-      <div class={`h-full w-full bg-gradient-to-br ${project.gradient}`} />
+      <>
+        {project.image ? (
+          <Image
+            src={project.image}
+            alt={project.title}
+            width={800}
+            height={450}
+            format="webp"
+            quality={88}
+            loading={index < 2 ? "eager" : "lazy"}
+            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            sizes="(max-width: 768px) 100vw, 55vw"
+          />
+        ) : (
+          <div class={`h-full w-full bg-gradient-to-br ${project.gradient}`} />
+        )}
+      </>
     )}
   </div>
 </article>

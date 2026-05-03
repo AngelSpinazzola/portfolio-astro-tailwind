@@ -101,7 +101,7 @@ const { project, index } = Astro.props;
             height={450}
             format="webp"
             quality={88}
-            loading={index < 2 ? "eager" : "lazy"}
+            loading={index === 0 ? "eager" : "lazy"}
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             sizes="(max-width: 768px) 100vw, 55vw"
           />
@@ -119,7 +119,7 @@ const { project, index } = Astro.props;
             height={450}
             format="webp"
             quality={88}
-            loading={index < 2 ? "eager" : "lazy"}
+            loading={index === 0 ? "eager" : "lazy"}
             class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
             sizes="(max-width: 768px) 100vw, 55vw"
           />

@@ -3,7 +3,7 @@ import panaderia from "../assets/images/panaderia-mockup.png";
 import apinetjwt from "../assets/images/endpoinds-api-jwt.png";
 import sanguis from "../assets/images/sanguis.png";
 import camano from "../assets/images/camano-constructora.png";
-import zeroweb from "../assets/images/zeroweb-mockup.png";
+import flowbyte from "../assets/images/flowbyte-mockup.png";
 
 export interface Project {
   id: number;
@@ -61,7 +61,7 @@ export const projects: Project[] = [
   },
   {
     id: 2,
-    title: "Zeroweb",
+    title: "FlowByte",
     description:
       'Agencia web para pymes y emprendedores. Diseño, desarrollo y estrategia digital en un solo lugar. Desde landings, sitios institucionales y e-commerce, cada proyecto esta pensado para <span class="text-zinc-900 dark:text-white font-medium">convertir visitas en clientes.</span> Desarrollada con <span class="text-zinc-900 dark:text-white font-medium">Astro + Tailwind CSS',
     tags: [
@@ -71,8 +71,8 @@ export const projects: Project[] = [
     ],
     gradient: "from-lime-400 to-green-600",
     label: "Emprendimiento",
-    demoUrl: "https://zeroweb-chi.vercel.app/",
-    image: zeroweb,
+    demoUrl: "https://flowbyte.ar/",
+    image: flowbyte,
     featured: true,
     year: 2025,
   },

@@ -46,13 +46,13 @@ export const projects: Project[] = [
   },
   {
     id: 1,
-    title: "Camaño Hidrogas",
+    title: "Landing Page",
     description:
       'Landing page para una empresa de plomería e hidrogas, orientada al <span class="text-zinc-900 dark:text-white font-medium">SEO local</span> con schema.org, sitemap y Open Graph. Diseño <span class="text-zinc-900 dark:text-white font-medium">mobile-first</span> con carrusel de reseñas, desarrollada con <span class="text-zinc-900 dark:text-white font-medium">Astro + Tailwind CSS</span>.',
     tags: [{ name: "Astro" }, { name: "Tailwind CSS" }],
     gradient: "from-cyan-500 to-teal-700",
     label: "Landing Page",
-    demoUrl: "https://camano-hidrogas-landing.vercel.app/", 
+    demoUrl: "https://www.xn--camaohidrogas-lkb.com.ar/", 
     githubUrl: "https://github.com/AngelSpinazzola/camano-hidrogas-landing",
     image: camano, 
     featured: false,

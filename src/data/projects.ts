@@ -1,5 +1,5 @@
-import novaTech from "../assets/images/novatech-mockup.png";
-import panaderia from "../assets/images/panaderia-mockup.png";
+import novaTech from "../assets/images/novatech-mockup.webp";
+import panaderia from "../assets/images/panaderia-mockup.webp";
 import apinetjwt from "../assets/images/endpoinds-api-jwt.png";
 import sanguis from "../assets/images/sanguis.png";
 
@@ -37,7 +37,7 @@ export const projects: Project[] = [
     ],
     gradient: "from-blue-500 to-indigo-600",
     label: "E-commerce",
-    demoUrl: "https://novatech-store.vercel.app/",
+    demoUrl: "https://novatech.flowbyte.ar/",
     githubUrl: "https://github.com/AngelSpinazzola/hardware-store-backend-api",
     image: novaTech,
     featured: true,
@@ -55,7 +55,7 @@ export const projects: Project[] = [
     ],
     gradient: "from-green-400 to-blue-500",
     label: "E-commerce",
-    demoUrl: "https://panaderia-ecommerce.vercel.app/",
+    demoUrl: "https://laportena.flowbyte.ar/",
     githubUrl: "https://github.com/AngelSpinazzola/panaderia-ecommerce",
     image: panaderia,
     featured: false,

@@ -1,5 +1,6 @@
 import novaTech from "../assets/images/novatech-mockup.webp";
 import panaderia from "../assets/images/panaderia-mockup.webp";
+import milanbarber from '../assets/images/milan-barber-mockup.webp';
 import apinetjwt from "../assets/images/endpoinds-api-jwt.png";
 import sanguis from "../assets/images/sanguis.png";
 
@@ -76,6 +77,22 @@ export const projects: Project[] = [
   },
   {
     id: 3,
+    title: "Milan Barber",
+    description:
+      'Landing page para una barbería, orientada a <span class="text-zinc-900 dark:text-white font-medium">convertir visitas en clientes.</span> Secciones de servicios, galería y contacto directo. Desarrollada con <span class="text-zinc-900 dark:text-white font-medium">Astro + Tailwind CSS</span>, con foco en rendimiento y experiencia mobile-first.',
+    tags: [
+      { name: "Astro" },
+      { name: "CSS" }, 
+      { name: "Tailwind CSS" },
+    ],
+    gradient: "from-green-400 to-blue-500",
+    label: "Landing Page",
+    demoUrl: "https://milanbarber.flowbyte.ar/",
+    image: milanbarber,
+    featured: false
+  },
+  {
+    id: 4,
     title: "Sanguis",
     description:
       "App web con sistema de donación de sangre desarrollada con ASP.NET Web Forms (.NET Framework 4.8) y SQL Server como proyecto universitario. Incluye administración de datos, autenticación de usuarios y funcionalidades CRUD completas con arquitectura en capas.",
